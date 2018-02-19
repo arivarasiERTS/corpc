@@ -8,6 +8,11 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { MaincontentPage } from '../pages/maincontent/maincontent';
+import { AboutcPage } from '../pages/aboutc/aboutc';
+import { ContactPage } from '../pages/contact/contact';
+import { FaqsPage } from '../pages/faqs/faqs';
+import { RateaPage } from '../pages/ratea/ratea';
+import { RatesPage } from '../pages/rates/rates';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -16,9 +21,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HomePage,
     ListPage,
-    LoginPage,
-    SignupPage,
-    MaincontentPage
+    AboutcPage,
+    ContactPage,
+    FaqsPage,
+    RatesPage,
+    RateaPage
   ],
   imports: [
     BrowserModule,
@@ -29,9 +36,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HomePage,
     ListPage,
-    LoginPage,
-    SignupPage,
-    MaincontentPage
+    AboutcPage,
+    ContactPage,
+    FaqsPage,
+    RatesPage,
+    RateaPage
   ],
   providers: [
     StatusBar,

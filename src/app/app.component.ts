@@ -8,6 +8,11 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { MaincontentPage } from '../pages/maincontent/maincontent';
+import { AboutcPage } from '../pages/aboutc/aboutc';
+import { ContactPage } from '../pages/contact/contact';
+import { FaqsPage } from '../pages/faqs/faqs';
+import { RateaPage } from '../pages/ratea/ratea';
+import { RatesPage } from '../pages/rates/rates';
 @Component({
   templateUrl: 'app.html'
 })
@@ -24,8 +29,12 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Login', component: LoginPage},
-      { title: 'maincontent', component: MaincontentPage}
+    { title: 'Home', component: HomePage},
+    { title: 'About Corpcare IT Solutions', component: AboutcPage},
+      { title: 'FAQs', component: FaqsPage},
+    { title: 'Contact Us', component: ContactPage},
+      { title: 'Rate Our Service', component: RatesPage},
+      { title: 'Rate this App', component: RateaPage}
     ];
 
   }
