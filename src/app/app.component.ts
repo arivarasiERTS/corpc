@@ -13,6 +13,16 @@ import { ContactPage } from '../pages/contact/contact';
 import { FaqsPage } from '../pages/faqs/faqs';
 import { RateaPage } from '../pages/ratea/ratea';
 import { RatesPage } from '../pages/rates/rates';
+//import { SmileRate } from './smile-rate';
+//import { SmileRateModule } from '../../components/smile-rate';
+//import { ReactiveFormsModule } from '@angular/forms';
+//import { FormControl, FormGroup, Validators } from '@angular/forms';
+//import { AuthProvider } from '../providers/auth';
+import firebase from 'firebase';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -25,8 +35,6 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
-
-
     // used for an example of ngFor and navigation
     this.pages = [
     { title: 'Home', component: HomePage},
@@ -38,6 +46,9 @@ export class MyApp {
     ];
 
   }
+
+
+
 
   initializeApp() {
     this.platform.ready().then(() => {

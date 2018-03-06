@@ -15,7 +15,25 @@ import { RateaPage } from '../pages/ratea/ratea';
 import { RatesPage } from '../pages/rates/rates';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+//import { AuthProvider } from '../providers/auth';
+//import { ReactiveFormsModule } from '@angular/forms';
+//import { FormControl, FormGroup, Validators } from '@angular/forms';
+import firebase from 'firebase';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
+//import { SmileRateComponent } from './smile-rate/smile-rate';
+//import { SmileRate } from './smile-rate';
+//import { SmileRateModule } from '../../components/smile-rate';
+const firebaseAuth = {
+  apiKey: "AIzaSyAHwtZv-TcvfmpGmPpVEa1oEyWMyR9m0b4",
+  authDomain: "corpc-86603.firebaseapp.com",
+  databaseURL: "https://corpc-86603.firebaseio.com",
+  projectId: "corpc-86603",
+  storageBucket: "corpc-86603.appspot.com",
+  messagingSenderId: "474871595787"
+};
 @NgModule({
   declarations: [
     MyApp,
@@ -29,7 +47,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
+  //  ReactiveFormsModule,
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseAuth),
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
