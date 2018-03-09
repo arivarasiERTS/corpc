@@ -1,7 +1,7 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {User} from './models/user';
+import {User} from '../../models/user';
 //import { ReactiveFormsModule } from '@angular/forms';
 //import { FormControl, FormGroup, Validators } from '@angular/forms';
 //import { AuthProvider } from '../providers/auth';
