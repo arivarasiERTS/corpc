@@ -1,11 +1,11 @@
-import { AngularFireAuth} from 'angularfire2/auth';
+//import { AngularFireAuth} from 'angularfire2/auth';
 import { AngularFireDatabase} from 'angularfire2/database';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 //import { AngularFireAuthModule } from 'angularfire2/auth';
 import {User} from '../../models/user';
 /**
- * Generated class for the SignupPage page.
+ * Generated class for the GuestinfoPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -13,14 +13,14 @@ import {User} from '../../models/user';
 
 @IonicPage()
 @Component({
-  selector: 'page-signup',
-  templateUrl: 'signup.html',
+  selector: 'page-guestinfo',
+  templateUrl: 'guestinfo.html',
 })
-export class SignupPage {
+export class GuestinfoPage {
 
   user = {} as User;
 
-  constructor(private afAuth: AngularFireAuth,private afDatabase: AngularFireDatabase,
+  constructor(private afDatabase: AngularFireDatabase,
      public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -28,14 +28,14 @@ export class SignupPage {
 //    console.log('ionViewDidLoad SignupPage');
 //  }
 
-async registerUser(user: User){
-  try{
-  const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
-    console.log(result);
-    this.afAuth.authState.subscribe(auth => {
+async guestUser(user: User){
+ try{
+//  const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
+  //  console.log(result);
+  //  this.afAuth.authState.subscribe(auth => {
       this.afDatabase.list('user').push(this.user)
-      .then(() => this.navCtrl.setRoot('LoginrPage'));
-    })
+  //    .then(() => this.navCtrl.setRoot('LoginrPage'));
+  //  })
   }
   catch(e){
     console.error(e);

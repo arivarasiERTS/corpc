@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { AngularFireAuth} from 'angularfire2/auth';
+import { AngularFireDatabase} from 'angularfire2/database';
 /**
  * Generated class for the MaincontentPage page.
  *
@@ -15,11 +16,39 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MaincontentPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private afAuth: AngularFireAuth,private afDatabase: AngularFireDatabase, private toast: ToastController, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MaincontentPage');
-  }
+    //console.log('ionViewDidLoad MaincontentPage');
+this.afAuth.authState.subscribe(data => {
+if(data.email && data.uid){
+  this.toast.create({
+    message: 'Login Successful',
+   duration: 3000,
+   position: 'top'
+ }).present();
+}
+else{
+  this.toast.create({
+    message: 'Authentication error',
+   duration: 3000,
+   position: 'top'
+ }).present();
+}
+})
 
+  }
+  userReq()
+  {
+    this.navCtrl.push('UserreqPage');
+  }
+  logoutUser(){
+    this.afAuth.auth.signOut();
+    this.toast.create({
+      message: 'Logged out',
+     duration: 3000,
+     position: 'top'
+   }).present();
+  }
 }
