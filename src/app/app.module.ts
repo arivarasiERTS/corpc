@@ -4,12 +4,11 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
-import { LoginrPage } from '../pages/loginr/loginr';
 import { SignupPage } from '../pages/signup/signup';
 import { MaincontentPage } from '../pages/maincontent/maincontent';
 import { MaincontentgPage } from '../pages/maincontentg/maincontentg';
+import { PasswordresetPage } from '../pages/passwordreset/passwordreset';
 import { GuestinfoPage } from '../pages/guestinfo/guestinfo';
 import { UserreqPage } from '../pages/userreq/userreq';
 import { AboutcPage } from '../pages/aboutc/aboutc';
@@ -42,7 +41,6 @@ const firebaseAuth = {
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
     AboutcPage,
     ContactPage,
     FaqsPage,
@@ -61,7 +59,6 @@ const firebaseAuth = {
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
     AboutcPage,
     ContactPage,
     FaqsPage,

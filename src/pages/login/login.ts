@@ -1,6 +1,6 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import {User} from '../../models/user';
 //import { ReactiveFormsModule } from '@angular/forms';
 //import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -22,12 +22,17 @@ export class LoginPage {
 user = {} as User;
 
   constructor(private afAuth: AngularFireAuth,
-    public navCtrl: NavController, public navParams: NavParams) {
+    public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
   }
   async loginUser(user: User){
     try{
+      let loader=this.loadingCtrl.create({
+        content: 'Please wait'
+      });
+      loader.present();
     const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
       console.log(result);
+      loader.dismiss();
       this.navCtrl.setRoot('MaincontentPage');
     }
     catch(e){
@@ -40,6 +45,9 @@ user = {} as User;
   }
   openSignUp() {
     this.navCtrl.push('SignupPage');
+  }
+  openReset() {
+    this.navCtrl.push('PasswordresetPage');
   }
 }
 

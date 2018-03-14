@@ -4,12 +4,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
-import { LoginrPage } from '../pages/loginr/loginr';
 import { SignupPage } from '../pages/signup/signup';
 import { MaincontentPage } from '../pages/maincontent/maincontent';
 import { MaincontentgPage } from '../pages/maincontentg/maincontentg';
+import { PasswordresetPage } from '../pages/passwordreset/passwordreset';
 import { GuestinfoPage } from '../pages/guestinfo/guestinfo';
 import { UserreqPage } from '../pages/userreq/userreq';
 import { AboutcPage } from '../pages/aboutc/aboutc';

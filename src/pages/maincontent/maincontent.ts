@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFireAuth} from 'angularfire2/auth';
 import { AngularFireDatabase} from 'angularfire2/database';
+import firebase from 'firebase';
 /**
  * Generated class for the MaincontentPage page.
  *
@@ -44,7 +45,9 @@ else{
     this.navCtrl.push('UserreqPage');
   }
   logoutUser(){
-    this.afAuth.auth.signOut();
+  firebase.auth().signOut().then(() => {
+      this.navCtrl.setRoot('LoginPage');
+    });
     this.toast.create({
       message: 'Logged out',
      duration: 3000,
