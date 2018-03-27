@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import { AngularFireAuth} from 'angularfire2/auth';
 import { AngularFireDatabase} from 'angularfire2/database';
 import firebase from 'firebase';
+//import {ChatProvider} from '../../providers/chat/chat';
+import {Reqs} from '../../models/reqs';
 /**
  * Generated class for the MaincontentPage page.
  *
@@ -16,8 +18,10 @@ import firebase from 'firebase';
   templateUrl: 'maincontent.html',
 })
 export class MaincontentPage {
+reqs = {} as Reqs;
+//firedata = firebase.database().ref('/user');
+  constructor(private afAuth: AngularFireAuth, private toast: ToastController, public navCtrl: NavController, public navParams: NavParams, private afDatabase: AngularFireDatabase) {
 
-  constructor(private afAuth: AngularFireAuth,private afDatabase: AngularFireDatabase, private toast: ToastController, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -38,12 +42,31 @@ else{
  }).present();
 }
 })
-
   }
-  userReq()
+
+
+  async userReq(reqs: Reqs)
   {
+
+try{
+/*  let loader=this.loadingCtrl.create({
+    content: 'Please wait'
+  });
+  loader.present();*/
+  const result = await this.afAuth.authState.take(1).subscribe(auth => {
+    this.afDatabase.list('reqs').push(this.reqs)
+        .then(() => this.navCtrl.push('UserreqPage'));
+
+  console.log(result);
+})
+}
+catch(e){
+  //  loader.dismiss();
+  console.error(e);
+}
     this.navCtrl.push('UserreqPage');
   }
+
   logoutUser(){
   firebase.auth().signOut().then(() => {
       this.navCtrl.setRoot('LoginPage');

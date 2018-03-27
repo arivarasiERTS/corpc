@@ -53,7 +53,7 @@ if(this.user.password.length < 6){
     })
   }
   catch(e){
-      loader.dismiss();
+    //  loader.dismiss();
     console.error(e);
   }
 }

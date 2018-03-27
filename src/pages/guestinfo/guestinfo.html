@@ -20,19 +20,22 @@
   <ion-list>
     <ion-item>
       <ion-label floating>Name</ion-label>
-      <ion-input type="text" [(ngModel)]="user.name"></ion-input>
+      <ion-input type="text" [(ngModel)]="reqs.name"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Contact number</ion-label>
-      <ion-input type="text" [(ngModel)]="user.phone"></ion-input>
+      <ion-input type="text" [(ngModel)]="reqs.phone"></ion-input>
     </ion-item>
 
-
+    <ion-item>
+     <ion-label floating>Write your issue</ion-label>
+     <ion-input type="text" [(ngModel)]="reqs.message"></ion-input>
+   </ion-item>
   </ion-list>
 
   <div padding>
-  <button ion-button color="secondary" block icon-right (click)="guestUser(user)">Sign Up<ion-icon name="arrow-dropright"></ion-icon></button>
+  <button ion-button color="secondary" block icon-right (click)="guestUser(reqs)">Send<ion-icon name="arrow-dropright"></ion-icon></button>
 </div>
 
 </ion-content>

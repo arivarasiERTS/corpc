@@ -9,11 +9,20 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Corpcare IT Solutions</ion-title>
+    <ion-title>User</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
-<h4>My Requests</h4>
+<ion-content>
+<div>
+<ion-list  no-lines>
+  <ion-item *ngFor = "let item of allmessages; let i - index" text-wrap>
+    <div>
+      Requests
+      {{item.message}}
+    </div>
+  </ion-item>
+</ion-list>
+</div>
 </ion-content>
