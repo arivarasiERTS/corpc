@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { AngularFireAuth} from 'angularfire2/auth';
-import { AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import { AngularFireDatabase} from 'angularfire2/database';
 import firebase from 'firebase';
 //import {ChatProvider} from '../../providers/chat/chat';
 //import {User} from '../../models/user';

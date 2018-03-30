@@ -1,97 +1,80 @@
-import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import {User} from '../../models/user';
-//import { ReactiveFormsModule } from '@angular/forms';
-//import { FormControl, FormGroup, Validators } from '@angular/forms';
-//import { AuthProvider } from '../providers/auth';
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {
+  Alert,
+  AlertController,
+  IonicPage,
+  Loading,
+  LoadingController,
+  NavController
+} from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthProvider } from '../../providers/auth/auth';
+import { HomePage } from '../home/home';
+import { MaincontentPage } from '../maincontent/maincontent';
+import { EmailValidator } from '../../validators/email';
+import firebase from 'firebase/app';
 
 @IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
+  templateUrl: 'login.html'
 })
 export class LoginPage {
-
-user = {} as User;
-
-  constructor(private afAuth: AngularFireAuth,
-    public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
-  }
-  async loginUser(user: User){
-    try{
-      let loader=this.loadingCtrl.create({
-        content: 'Please wait'
-      });
-      loader.present();
-    const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
-      console.log(result);
-      loader.dismiss();
-      this.navCtrl.setRoot('MaincontentPage');
-    }
-    catch(e){
-      console.error(e);
-    }
+  public loginForm: FormGroup;
+  constructor(
+    public navCtrl: NavController,
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController,
+    public authProvider: AuthProvider,
+    formBuilder: FormBuilder
+  ) {
+    this.loginForm = formBuilder.group({
+      email: [
+        '',
+        Validators.compose([Validators.required, EmailValidator.isValid])
+      ],
+      password: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)])
+      ]
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
-  openSignUp() {
+  goToSignup(): void {
     this.navCtrl.push('SignupPage');
   }
-  openReset() {
-    this.navCtrl.push('PasswordresetPage');
+
+  goToResetPassword(): void {
+    this.navCtrl.push('ResetPasswordPage');
   }
-}
 
-  /**export class LoginPage implements OnInit {
-      loginForm: FormGroup;
+  async loginUser(): Promise<void> {
+    if (!this.loginForm.valid) {
+      console.log(
+        `Form is not valid yet, current value: ${this.loginForm.value}`
+      );
+    } else {
+      const loading: Loading = this.loadingCtrl.create();
+      loading.present();
 
-      constructor(private auth: AuthProvider, private formBuilder: FormBuilder, private navCtrl: NavController, private navParams: NavParams) {}
+      const email = this.loginForm.value.email;
+      const password = this.loginForm.value.password;
 
-      ngOnInit() {
-          this.initLoginForm();
-      }
-
-      initLoginForm() {
-          this.loginForm = this.formBuilder.group({
-              email: ['', [Validators.required, Validators.email]],
-              password: ['', [Validators.required]]
-          });
-      }
-
-      register() {
-          this.auth.register(this.loginForm.value)
-          .then(response => {
-              this.navCtrl.setRoot(MaincontentPage);
-          })
-          .catch(error => {
-              // handle error by showing alert
-          })
-      }
-
-      login() {
-          this.auth.login(this.loginForm.value)
-          .then(response => {
-              this.navCtrl.setRoot(MaincontentPage);
-          })
-          .catch(error => {
-              // handle error by showing alert
-          })
-      }
-      logout() {
-        this.auth.logout()
-        .then(response => {
-            this.navCtrl.setRoot(LoginPage);
+      try {
+        const loginUser: firebase.User = await this.authProvider.loginUser(
+          email,
+          password
+        );
+        await loading.dismiss();
+        this.navCtrl.setRoot(MaincontentPage);
+      } catch (error) {
+        await loading.dismiss();
+        const alert: Alert = this.alertCtrl.create({
+          message: error.message,
+          buttons: [{ text: 'Ok', role: 'cancel' }]
         });
+        alert.present();
+      }
     }
   }
-
-//}**/
+}

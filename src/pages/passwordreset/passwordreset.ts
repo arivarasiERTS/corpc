@@ -1,7 +1,16 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {User} from '../../models/user';
-import firebase from 'firebase';
+import {
+  Alert,
+  AlertController,
+  IonicPage,
+  Loading,
+  LoadingController,
+  NavController
+} from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthProvider } from '../../providers/auth/auth';
+import { HomePage } from '../home/home';
+import { EmailValidator } from '../../validators/email';
 /**
  * Generated class for the PasswordresetPage page.
  *
@@ -15,23 +24,57 @@ import firebase from 'firebase';
   templateUrl: 'passwordreset.html',
 })
 export class PasswordresetPage {
-user = {} as User;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public resetPasswordForm: FormGroup;
+  constructor(
+    public navCtrl: NavController,
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController,
+    public authProvider: AuthProvider,
+    formBuilder: FormBuilder
+  ) {
+    this.resetPasswordForm = formBuilder.group({
+      email: [
+        '',
+        Validators.compose([Validators.required, EmailValidator.isValid])
+      ]
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PasswordresetPage');
+  async resetPassword(): Promise<void> {
+    if (!this.resetPasswordForm.valid) {
+      console.log(
+        `Form is not valid yet, current value: ${this.resetPasswordForm.value}`
+      );
+    } else {
+      const loading: Loading = this.loadingCtrl.create();
+      loading.present();
+
+      const email = this.resetPasswordForm.value.email;
+
+      try {
+        const loginUser: void = await this.authProvider.resetPassword(email);
+        await loading.dismiss();
+        const alert: Alert = this.alertCtrl.create({
+          message: 'Check your inbox for a password reset link',
+          buttons: [
+            { text: 'Cancel', role: 'cancel' },
+            {
+              text: 'Ok',
+              handler: data => {
+                this.navCtrl.pop();
+              }
+            }
+          ]
+        });
+        alert.present();
+      } catch (error) {
+        await loading.dismiss();
+        const alert: Alert = this.alertCtrl.create({
+          message: error.message,
+          buttons: [{ text: 'Ok', role: 'cancel' }]
+        });
+        alert.present();
+      }
+    }
   }
-openLogin(){
-  this.navCtrl.push('LoginPage');
-}
-reset(user){
-  var promise = new Promise((resolve,reject)=> {
-    firebase.auth().sendPasswordResetEmail(user.mailid).then(() => {
-        resolve({success: true});
-      }).catch((err) => {
-        reject(err);
-      })  })
-      return promise;
-}
 }

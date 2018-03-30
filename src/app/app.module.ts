@@ -22,28 +22,23 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 //import { ReactiveFormsModule } from '@angular/forms';
 //import { FormControl, FormGroup, Validators } from '@angular/forms';
 import firebase from 'firebase';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { ChatProvider } from '../providers/chat/chat';
+//import { AngularFireModule } from 'angularfire2';
+//import { AngularFireDatabaseModule } from 'angularfire2/database';
+//import { AngularFireAuthModule } from 'angularfire2/auth';
+//import { ChatProvider } from '../providers/chat/chat';
+import { AuthProvider } from '../providers/auth/auth';
 
 //import { SmileRateComponent } from './smile-rate/smile-rate';
 //import { SmileRate } from './smile-rate';
 //import { SmileRateModule } from '../../components/smile-rate';
-const firebaseAuth = {
-  apiKey: "AIzaSyAHwtZv-TcvfmpGmPpVEa1oEyWMyR9m0b4",
-  authDomain: "corpc-86603.firebaseapp.com",
-  databaseURL: "https://corpc-86603.firebaseio.com",
-  projectId: "corpc-86603",
-  storageBucket: "corpc-86603.appspot.com",
-  messagingSenderId: "474871595787"
-};
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     AboutcPage,
     ContactPage,
+    MaincontentPage,
     FaqsPage,
     RatesPage,
     RateaPage
@@ -51,10 +46,7 @@ const firebaseAuth = {
   imports: [
     BrowserModule,
   //  ReactiveFormsModule,
-    IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseAuth),
-    AngularFireAuthModule,
-    AngularFireDatabaseModule
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -62,6 +54,7 @@ const firebaseAuth = {
     HomePage,
     AboutcPage,
     ContactPage,
+    MaincontentPage,
     FaqsPage,
     RatesPage,
     RateaPage
@@ -70,7 +63,7 @@ const firebaseAuth = {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ChatProvider
+    AuthProvider
   ]
 })
 export class AppModule {}

@@ -22,9 +22,11 @@ import { RatesPage } from '../pages/rates/rates';
 //import { FormControl, FormGroup, Validators } from '@angular/forms';
 //import { AuthProvider } from '../providers/auth';
 import firebase from 'firebase';
+import { firebaseConfig } from './credentials';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Unsubscribe } from '@firebase/util';
 
 @Component({
   templateUrl: 'app.html'
@@ -32,12 +34,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  
+
+  rootPage: any;
 
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    this.initializeApp();
+    firebase.initializeApp(firebaseConfig);
     // used for an example of ngFor and navigation
     this.pages = [
     { title: 'Home', component: HomePage},
@@ -48,6 +52,15 @@ export class MyApp {
       { title: 'Rate this App', component: RateaPage}
     ];
 
+    const unsubscribe: Unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.rootPage = HomePage;
+        unsubscribe();
+      } else {
+        this.rootPage = 'LoginPage';
+        unsubscribe();
+      }
+    });
   }
 
 
