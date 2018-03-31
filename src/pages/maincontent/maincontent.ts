@@ -4,8 +4,8 @@ import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angul
 //import { AngularFireDatabase} from 'angularfire2/database';
 import firebase from 'firebase';
 import { AuthProvider } from '../../providers/auth/auth';
-//import {ChatProvider} from '../../providers/chat/chat';
-//import {Reqs} from '../../models/reqs';
+import {ChatProvider} from '../../providers/chat/chat';
+import {User} from '../../models/user';
 /**
  * Generated class for the MaincontentPage page.
  *
@@ -19,20 +19,27 @@ import { AuthProvider } from '../../providers/auth/auth';
   templateUrl: 'maincontent.html',
 })
 export class MaincontentPage {
-//reqs = {} as Reqs;
-//firedata = firebase.database().ref('/user');
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+lap;
+newmessage;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public chatservice: ChatProvider) {
 
   }
 
   ionViewDidLoad() {
     //console.log('ionViewDidLoad MaincontentPage');
-
   }
 
+  picked(lap: string){
+    this.chatservice.addsel(this.lap);
+  }
+  userReq(newmessage: string){
+    this.chatservice.addmsg(this.newmessage);
+  }
 
-
-
+userReqdis(){
+  this.navCtrl.push('UserreqPage');
+}
   logoutUser(){
   firebase.auth().signOut().then(() => {
       this.navCtrl.setRoot('LoginPage');

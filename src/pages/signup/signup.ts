@@ -35,6 +35,18 @@ export class SignupPage {
       password: [
         '',
         Validators.compose([Validators.required, Validators.minLength(6)])
+      ],
+      name: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(2)])
+      ],
+      place: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(2)])
+      ],
+      phone: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(10)])
       ]
     });
   }
@@ -50,11 +62,18 @@ export class SignupPage {
 
       const email = this.signupForm.value.email;
       const password = this.signupForm.value.password;
+      const name = this.signupForm.value.name;
+      const place = this.signupForm.value.place;
+      const phone = this.signupForm.value.phone;
+    
 
       try {
         await this.authProvider.signupUser(
           email,
-          password
+          password,
+          name,
+          place,
+          phone
         );
         await loading.dismiss();
         this.navCtrl.setRoot(HomePage);

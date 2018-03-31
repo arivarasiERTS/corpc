@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { AngularFireAuth} from 'angularfire2/auth';
 import { AngularFireDatabase} from 'angularfire2/database';
 import firebase from 'firebase';
-//import {ChatProvider} from '../../providers/chat/chat';
+import {ChatProvider} from '../../providers/chat/chat';
 //import {User} from '../../models/user';
 /**
  * Generated class for the UserreqPage page.
@@ -24,7 +24,7 @@ export class UserreqPage {
 //public user = {} as User;
 
 //requests: string;
-constructor(public navCtrl: NavController, public navParams: NavParams) {
+constructor(public navCtrl: NavController, public navParams: NavParams, public chatservice: ChatProvider) {
 
 }
 ionViewDidLoad() {

@@ -37,7 +37,24 @@
       && signupForm.controls.password.touched">
       <p>Your password needs more than 6 characters.</p>
     </ion-item>
-
+    <ion-item [class.invalid]="!signupForm.controls.name.valid && signupForm.controls.name.touched"
+      [class.valid]="signupForm.controls.name.valid && signupForm.controls.name.touched">
+      <ion-label stacked>Name</ion-label>
+      <ion-input formControlName="name" type="text" placeholder="Your Name">
+      </ion-input>
+    </ion-item>
+    <ion-item [class.invalid]="!signupForm.controls.place.valid && signupForm.controls.place.touched"
+    [class.valid]="signupForm.controls.place.valid && signupForm.controls.place.touched">
+    <ion-label stacked>Place</ion-label>
+    <ion-input formControlName="place" type="text" placeholder="Your Place">
+    </ion-input>
+  </ion-item>
+  <ion-item [class.invalid]="!signupForm.controls.phone.valid && signupForm.controls.phone.touched"
+  [class.valid]="signupForm.controls.phone.valid && signupForm.controls.phone.touched">
+  <ion-label stacked>Phone</ion-label>
+  <ion-input formControlName="phone" type="text" placeholder="Your Contact Number">
+  </ion-input>
+</ion-item>
     <button ion-button block type="submit" [disabled]="!signupForm.valid">
       Create a new Account
     </button>

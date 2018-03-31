@@ -27,6 +27,7 @@ import firebase from 'firebase';
 //import { AngularFireAuthModule } from 'angularfire2/auth';
 //import { ChatProvider } from '../providers/chat/chat';
 import { AuthProvider } from '../providers/auth/auth';
+import { ChatProvider } from '../providers/chat/chat';
 
 //import { SmileRateComponent } from './smile-rate/smile-rate';
 //import { SmileRate } from './smile-rate';
@@ -63,7 +64,8 @@ import { AuthProvider } from '../providers/auth/auth';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    ChatProvider
   ]
 })
 export class AppModule {}

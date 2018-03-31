@@ -10,7 +10,7 @@ export class AuthProvider {
     return firebase.auth().signInWithEmailAndPassword(email, password);
   }
 
-  async signupUser(email: string, password: string): Promise<User> {
+  async signupUser(email: string, password: string, name: string, place: string, phone: string): Promise<User> {
     try {
       const newUser: User = await firebase
         .auth()
@@ -20,6 +20,9 @@ export class AuthProvider {
         .database()
         .ref(`/userProfile/${newUser.uid}/email`)
         .set(email);
+        firebase.database().ref(`/userProfile/${newUser.uid}/name`).set(name);
+        firebase.database().ref(`/userProfile/${newUser.uid}/place`).set(place);
+        firebase.database().ref(`/userProfile/${newUser.uid}/phone`).set(phone);
       return newUser;
     } catch (error) {
       throw error;
